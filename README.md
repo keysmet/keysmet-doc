@@ -2,6 +2,10 @@
 
 Join the [Discord server](https://discord.gg/FB8kF5ye)
 
+## API
+
+- [api.md](./api.md)
+
 ## Examples
 
 - [Time](https://keysmet.io/script/examples/time)
@@ -21,8 +25,8 @@ If you are defining an infinite while loop, put it at the very end of the script
 
 ```lua
 while true do
-	-- code
-	wait(10)
+    -- code
+    wait(10)
 end
 
 -- This function will never be called because the main script never reaches this point
