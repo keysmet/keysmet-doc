@@ -99,70 +99,16 @@ color.rgb(r: number, g: number, b: number)
 -- Construct a new color from 3 HSL components
 color.hsl(h: number, s: number, l: number)
 ```
+## Lua standard api
 
-## Lua math
+* [table api](https://www.lua.org/manual/5.4/manual.html#6.6)
+* [math api](https://www.lua.org/manual/5.4/manual.html#6.7)
 
+On top of this the following extensions to the standard API are provied:
 ```lua
--- Compute the absolute value of a number.
-math.abs(x: number)
+-- Randomize elements in the table (uses math.random)
+table.shuffle(table : table)
 
--- Compute the arc cosine of a number.
-math.acos(x: number)
-
--- Compute the arc sine of a number.
-math.asin(x: number)
-
--- Compute the arc tangent of a number.
-math.atan(x: number)
-
--- Compute the arc tangent of the quotient of two numbers.
-math.atan2(y: number, x: number)
-
--- Round a number to the nearest integer.
-math.ceil(x: number)
-
--- Compute the cosine of a number.
-math.cos(x: number)
-
--- Compute the hyperbolic cosine of a number.
-math.cosh(x: number)
-
--- Compute the exponential of a number.
-math.exp(x: number)
-
--- Round a number down to the nearest integer.
-math.floor(x: number)
-
--- Compute the remainder of the division of two numbers.
-math.fmod(x: number, y: number)
-
--- Compute the square root of a number.
-math.sqrt(x: number)
-
--- Compute the base-10 logarithm of a number.
-math.log10(x: number)
-
--- Compute the natural logarithm of a number.
-math.log(x: number)
-
--- Return the maximum value from a list of numbers.
-math.max()
-
--- Return the minimum value from a list of numbers.
-math.min()
-
--- Raises a number to a power.
-math.pow(x: number, y: number)
-
--- Round a number to the nearest integer, using "round half away from zero" rounding.
-math.round(x: number)
-
--- Generate a pseudo-random number between 0 and 1.
-math.random()
-
--- Generate a pseudo-random integer between two specified numbers.
-math.random(m: integer, n: integer)
-
--- Set the seed for the random number generator.
-math.randomseed(seed: integer)
+-- Empty the the table, equivalent of table = {} without allocations
+table.clear(table : table)
 ```
