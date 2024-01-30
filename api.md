@@ -1,40 +1,7 @@
 
 # API
 
-Note: Type annotations are provided here but cannot be used in a script.
-
-## Events
-
-This functions are called automatically if they are defined.
-
-```lua
--- Called when a key is pressed down
-onPress(key : integer)
-
--- Called when a key is released
-onRelease(key : integer)
-
--- Called when a key is pressed and released shortly after
-onTap(key : integer)
-
--- Called when menu button is pressed down
-onMenuPress(key : integer)
-
--- Called when menu button is released
-onMenuRelease(key : integer)
-
--- Called when menu button is pressed and released shortly after
-onMenuTap(key : integer)
-
--- Called every frame, passing the elapsed time as argument
-onUpdate(ms : number)
-
--- Register a table which keys are function callbacks
-addListener(listener: table)
-
--- Unregister listener previously registered with `addListener`
-removeListener(listener: table)
-```
+Note: Type annotations are provided here for reference but cannot be used in a script.
 
 ## General
 
@@ -86,6 +53,39 @@ waitPress(key: number, ...)
 -- Wait until any of the keys passed as arguments are released. Return which was releasedfirst.
 waitRelease(key: number, ...)
 
+```
+
+## Events
+
+This functions are called automatically if they are defined.
+
+```lua
+-- Called when a key is pressed down
+onPress(key : integer)
+
+-- Called when a key is released
+onRelease(key : integer)
+
+-- Called when a key is pressed and released shortly after
+onTap(key : integer)
+
+-- Called when menu button is pressed down
+onMenuPress(key : integer)
+
+-- Called when menu button is released
+onMenuRelease(key : integer)
+
+-- Called when menu button is pressed and released shortly after
+onMenuTap(key : integer)
+
+-- Called every frame, passing the elapsed time as argument
+onUpdate(ms : number)
+
+-- Register a table which keys are function callbacks
+addListener(listener: table)
+
+-- Unregister listener previously registered with `addListener`
+removeListener(listener: table)
 ```
 
 ## Color
