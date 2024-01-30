@@ -39,7 +39,7 @@ removeListener(listener: table)
 ## General
 
 ```lua
--- Get absolute time in seconds since script started
+-- Get absolute time in milliseconds since script started
 time()
 
 -- Reset script absolute time to 0
@@ -66,10 +66,10 @@ print(...)
 keyDown(key: integer)
 
 -- Return true if `key` was just pressed down
-keyPressed(key: integer)
+keyPress(key: integer)
 
 -- Return true if `key` was just released
-keyReleased(key: integer)
+keyRelease(key: integer)
 
 -- Set key color
 setColor(key: integer, color: integer)
@@ -79,6 +79,13 @@ fadeColor(key: integer, color: integer, ms: integer)
 
 -- Flash key for `ms` milliseconds and progressively revert to previous state
 flashColor(key: integer, color: integer, ms: integer)
+
+-- Wait until any of the keys passed as arguments are pressed. Return which was pressed first.
+waitPress(key: number, ...)
+
+-- Wait until any of the keys passed as arguments are released. Return which was releasedfirst.
+waitRelease(key: number, ...)
+
 ```
 
 ## Color
