@@ -38,6 +38,9 @@ press(key: integer)
 -- Return true if `key` was just released
 release(key: integer)
 
+-- Return true if `key` was held down for at least `ms` milliseconds
+hold(key: integer, ms: integer)
+
 -- Wait until any of the keys passed as arguments are pressed. Return which was pressed first.
 waitPress(key: number, ...)
 
