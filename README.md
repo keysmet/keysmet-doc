@@ -8,9 +8,7 @@ Join the [Discord server](https://discord.gg/FB8kF5ye)
 
 ## Examples
 
-- [Time](https://keysmet.io/script/examples/time)
-- [Menu](https://keysmet.io/script/examples/menu)
-- [Synth](https://keysmet.io/script/examples/synth)
+- [Basic examples](https://keysmet.io/user/keysmet)
 
 ## Lua
 
