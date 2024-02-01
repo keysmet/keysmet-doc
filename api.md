@@ -30,13 +30,19 @@ print(...)
 
 ```lua
 -- Return true if `key` is currently pressed down
-keyDown(key: integer)
+down(key: integer)
 
 -- Return true if `key` was just pressed down
-keyPress(key: integer)
+press(key: integer)
 
 -- Return true if `key` was just released
-keyRelease(key: integer)
+release(key: integer)
+
+-- Wait until any of the keys passed as arguments are pressed. Return which was pressed first.
+waitPress(key: number, ...)
+
+-- Wait until any of the keys passed as arguments are released. Return which was releasedfirst.
+waitRelease(key: number, ...)
 
 -- Set key color
 setColor(key: integer, color: integer)
@@ -46,12 +52,6 @@ fadeColor(key: integer, color: integer, ms: integer)
 
 -- Flash key for `ms` milliseconds and progressively revert to previous state
 flashColor(key: integer, color: integer, ms: integer)
-
--- Wait until any of the keys passed as arguments are pressed. Return which was pressed first.
-waitPress(key: number, ...)
-
--- Wait until any of the keys passed as arguments are released. Return which was releasedfirst.
-waitRelease(key: number, ...)
 
 ```
 
