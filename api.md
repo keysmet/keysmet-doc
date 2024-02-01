@@ -29,23 +29,23 @@ print(...)
 ## Keys
 
 ```lua
--- Return true if `key` is currently pressed down
-down(key: integer)
+-- If any of the given keys are currently pressed down, return the first one. Otherwise return false
+down(key: integer, ...)
 
--- Return true if `key` was just pressed down
+-- If any of the given keys were just pressed down, return the first one. Otherwise return false
 press(key: integer)
 
--- Return true if `key` was just released
+-- If any of the given keys were just released, return the first one. Otherwise return false
 release(key: integer)
 
 -- Return true if `key` was held down for at least `ms` milliseconds
 hold(key: integer, ms: integer)
 
 -- Wait until any of the keys passed as arguments are pressed. Return which was pressed first.
-waitPress(key: number, ...)
+waitPress(key: integer, ...)
 
 -- Wait until any of the keys passed as arguments are released. Return which was releasedfirst.
-waitRelease(key: number, ...)
+waitRelease(key: integer, ...)
 
 -- Set key color
 setColor(key: integer, color: integer)
