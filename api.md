@@ -16,7 +16,7 @@ Return time in milliseconds since script started, or last time `resetTime` was c
 
 ```lua
 if time() > 20 * 1000 then
-	-- It has already been 20 seconds!
+    -- It has already been 20 seconds!
 end
 ```
 
@@ -43,10 +43,10 @@ Start a new thread executing the given function `func`. Thread starts immediatel
 ```lua
 -- Start a thread that calls dostuff 10 times and stops
 start(function()
-	for i=1, 10 do
-		dostuff()
-		wait(1000)
-	end
+    for i=1, 10 do
+        dostuff()
+            wait(1000)
+    end
 end)
 
 -- Script continues to run in parallel
@@ -59,7 +59,7 @@ Call the function `func` after `ms` milliseconds. Unlike `wait`, execution of th
 ```lua
 -- Delay inline function
 delay(1000, function()
-	-- This is called 1 second later
+    -- This is called 1 second later
 end)
 
 -- Delay a named function
@@ -86,17 +86,17 @@ If any of the given keys are currently pressed down, return the first one. Other
 
 ```lua
 if down() then
-	-- Any key is currently pressed down
+    -- Any key is currently pressed down
 end
 
 if down(1) then
-	-- Key 1 is currently pressed down
+    -- Key 1 is currently pressed down
 end
 
 local key = down(1, 6)
 if key then
-	-- key is whichever key is currently pressed down. 
-	-- If both are pressed down, only the lower index one is returned (1)
+    -- key is whichever key is currently pressed down. 
+    -- If both are pressed down, only the lower index one is returned (1)
 end
 ```
 
@@ -118,7 +118,7 @@ Return true if `key` was held down for at least `ms` milliseconds
 
 ```lua
 if hold(1, 1000) then
-	-- Key was pressed down for at leaast 1 second
+    -- Key was pressed down for at leaast 1 second
 end
 ```
 
@@ -192,7 +192,7 @@ Called every frame, passing the elapsed frame time as argument.
 
 ```lua
 function onUpdate(ms)
-	-- Loop here
+    -- Loop here
 end
 ```
 
@@ -202,7 +202,7 @@ Called when a key is pressed down.
 
 ```lua
 function onPress(key)
-	-- A key was pressed
+    -- A key was pressed
 end
 ```
 
@@ -212,7 +212,7 @@ Called when a key is released.
 
 ```lua
 function onRelease(key)
-	-- A key was released
+    -- A key was released
 end
 
 ```
@@ -223,7 +223,7 @@ Called when a key is pressed and released shortly after.
 
 ```lua
 function onTap(key)
-	-- A key was tapped
+    -- A key was tapped
 end
 ```
 
@@ -233,7 +233,7 @@ Called when menu button is pressed down.
 
 ```lua
 function onMenuPress()
-	-- Menu button pressed
+    -- Menu button pressed
 end
 ```
 
@@ -243,7 +243,7 @@ Called when menu button is released.
 
 ```lua
 function onMenuRelease()
-	-- Menu button released
+    -- Menu button released
 end
 ```
 
@@ -253,7 +253,7 @@ Called when menu button is pressed and released shortly after.
 
 ```lua
 function onMenuTap()
-	-- Menu button tapped
+    -- Menu button tapped
 end
 ```
 
@@ -263,8 +263,8 @@ Register a table which keys are function callbacks. This is useful to listen to 
 
 ```lua
 addListener({
-	onMenuTap = function()
-	end
+    onMenuTap = function()
+    end
 })
 ```
 
@@ -274,7 +274,7 @@ Unregister listener previously registered with `addListener`
 
 ```lua
 local l = addListener({
-	...
+    ...
 })
 removeListener(l)
 ```
