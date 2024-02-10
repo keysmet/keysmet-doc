@@ -12,7 +12,7 @@ Type annotations (`:integer` etc) are provided here for reference but cannot be 
 
 ### `time()`
 
-Return time in milliseconds since script started, or last time `resetTime` was called. 
+Returns time since script started (in milliseconds), or last time `resetTime` was called. 
 
 ```lua
 if time() > 20 * 1000 then
@@ -28,7 +28,7 @@ Reset time to 0.
 
 ### `wait(ms: integer)`
 
-Pause current thread of execution for `ms` milliseconds. Argument can be omitted to wait for a single frame. 
+Pauses the current thread of execution for `ms` milliseconds. Argument can be omitted to wait for a single frame. 
 
 ```lua
 dostuff()
@@ -38,7 +38,7 @@ dostuff()
 
 ### `start(func: function)`
 
-Start a new thread executing the given function `func`. Thread starts immediately. Return the new thread (`coroutine`).
+Starts a new thread executing the given function `func`. Thread starts immediately. Return the new thread (`coroutine`).
 
 ```lua
 -- Start a thread that calls dostuff 10 times and stops
@@ -54,7 +54,7 @@ end)
 
 ### `delay(ms: integer, func: function)`
 
-Call the function `func` after `ms` milliseconds. Unlike `wait`, execution of the current thread is not blocked.
+Calls the function `func` after `ms` milliseconds. Unlike `wait`, execution of the current thread is not blocked.
 
 ```lua
 -- Delay inline function
@@ -68,13 +68,17 @@ delay(1000, restart)
 
 ### `print(...)`
 
-Print one or several values to the emulator console. Has no effect on device. 
+Prints one or several values to the emulator console. Has no effect on device. 
 
 ```lua
 print("string")
 print(1)
 print(myvar, myvar2)
 ```
+
+### `restart()`
+
+Restarts the script from the beginning.
 
 ## Keys
 
