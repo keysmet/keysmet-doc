@@ -182,6 +182,46 @@ flashColor(1, 0xffffff, 500)  -- Key flashes instantly to white
 wait(500)  -- Flash animation makes it to back to red
 ```
 
+## Color
+Colors can be constructed in various ways:
+```lua
+-- Hexadecimal integer notation: 0xRRGGBB
+setColor(1, 0xff00ff)
+
+-- Hexadecimal string notation, common on the web
+-- See for example https://www.w3schools.com/colors/colors_picker.asp
+setColor(2, "#ff00FF")
+
+-- The leading # is optional
+setColor(3, "ff00FF")
+
+-- Using color.rgb
+setColor(4, color.rgb(1,0,1))
+
+-- in HSL mode
+setColor(4, color.hsl(5/6,1,.5))
+```
+
+### `color.mul(a: color, b: color)`
+
+Multiply two colors.
+
+### `color.add(a: color, b: color)`
+
+Add two colors.
+
+### `color.mix(a: color, b: color, k: number)`
+
+Mixes (blend) between two colors.
+
+### `color.rgb(r: number, g: number, b: number)`
+
+Construct a new color from 3 components between 0 and 1.
+
+### `color.hsl(h: number, s: number, l: number)`
+
+Construct a new color from hue, saturation and lightness values between 0 and 1.
+
 ## Events
 
 Events are special functions that are called automatically if they are defined. 
@@ -280,28 +320,6 @@ local l = addListener({
 })
 removeListener(l)
 ```
-
-## Color
-
-### `color.mul(a: color, b: color)`
-
-Multiply two colors.
-
-### `color.add(a: color, b: color)`
-
-Add two colors.
-
-### `color.mix(a: color, b: color, k: number)`
-
-Mixes (blend) between two colors.
-
-### `color.rgb(r: number, g: number, b: number)`
-
-Construct a new color from 3 components between 0 and 1.
-
-### `color.hsl(h: number, s: number, l: number)`
-
-Construct a new color from hue, saturation and lightness values between 0 and 1.
 
 ## Table
 
