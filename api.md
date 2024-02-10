@@ -80,6 +80,8 @@ print(myvar, myvar2)
 
 Keys are identified by numbers between 1 and 10. Calling any key-related function with indices outside the [1-10] range has no effect. 
 
+![keymap](https://github.com/keysmet/keysmet-doc/assets/1499344/d23ac875-1895-46fa-bff9-083ef430fabf)
+
 ### **`down(key: integer, ...)`**
 
 If any of the given keys are currently pressed down, return the first one. Otherwise return false.
