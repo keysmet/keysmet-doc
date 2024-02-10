@@ -1,5 +1,5 @@
 # Keysmet Programming Guide
-Join the [Discord server](https://discord.gg/FB8kF5ye)
+Join the [Discord server](https://discord.gg/kYZQket7BS)
 
 ## API
 
