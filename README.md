@@ -27,7 +27,7 @@ The `onUpdate` function, if defined, is called every frame automatically, indefi
 
 ```lua
 function onUpdate()
-	-- Code here executes every frame
+    -- Code here executes every frame
 end
 ```
 
@@ -37,11 +37,11 @@ The limitation of this approach is that, if your script has several states, you 
 
 ```lua
 function onUpdate()
-  if state == INTRO then
-		updateIntro()
-	else
-		updateGame()
-	end
+    if state == INTRO then
+        updateIntro()
+    else
+        updateGame()
+    end
 end
 ```
 
@@ -54,14 +54,14 @@ To better control the program flow it is often useful to create an infinite loop
 ```lua
 -- Intro
 while not press() do
-	-- Do something until any key is pressed...
-	wait()
+    -- Do something until any key is pressed...
+    wait()
 end
 
 -- Game
 while true do
-	-- Do something indefinitely
-	wait()
+    -- Do something indefinitely
+    wait()
 end
 ```
 
@@ -73,10 +73,10 @@ It is possible to exit infinite loops using `break`:
 
 ```lua
 while true do
-  if press(1) then
-		break
-	end
-	wait()
+    if press(1) then
+        break
+    end
+    wait()
 end
 ```
 
@@ -84,8 +84,8 @@ end
 
 ```lua
 while true do
-	-- code
-	wait(10)
+    -- code
+    wait(10)
 end
 
 -- This function will never be called because the main script never reaches this point
