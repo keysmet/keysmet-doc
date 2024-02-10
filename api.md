@@ -45,7 +45,7 @@ Start a new thread executing the given function `func`. Thread starts immediatel
 start(function()
     for i=1, 10 do
         dostuff()
-            wait(1000)
+        wait(1000)
     end
 end)
 
