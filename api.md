@@ -86,9 +86,9 @@ Keys are identified by numbers between 1 and 10. Calling any key-related functio
 
 ![keymap](https://github.com/keysmet/keysmet-doc/assets/1499344/d23ac875-1895-46fa-bff9-083ef430fabf)
 
-### **`down(key: integer, ...)`**
+### **`down([key: integer, ...])`**
 
-If any of the given keys are currently pressed down, return the first one. Otherwise return false.
+If any of the given keys are currently pressed down, returns the first one. Otherwise returns false.
 
 ```lua
 if down() then
@@ -106,25 +106,25 @@ if key then
 end
 ```
 
-### **`press(key: integer)`**
+### **`press([key: integer, ...])`**
 
-If any of the given keys were just pressed down, return the first one. Otherwise return false.
+If any of the given keys were just pressed down, returns the first one. Otherwise returns false.
 
-Works the same way as `down` with the difference that it returns a value only during the frame were the key was **pressed**, not after.
+Works the same way as `down` with the difference that it returns a value only during the single frame were the key was **pressed**.
 
-### **`release(key: integer)`**
+### **`release([key: integer, ...])`**
 
 If any of the given keys were just released, return the first one. Otherwise return false.
 
-Works the same way as `down` with the difference that it returns a value only during the frame were the key was **released**, not after.
+Just like `press`, it returns a value only during the single frame were the key was **released**.
 
 ### **`hold(key: integer, ms: integer): boolean`**
 
-Return true if `key` was held down for at least `ms` milliseconds
+Returns true if `key` was held down for at least `ms` milliseconds
 
 ```lua
 if hold(1, 1000) then
-    -- Key was pressed down for at leaast 1 second
+    -- Key was pressed down for at least 1 second
 end
 ```
 
@@ -132,31 +132,31 @@ end
 
 Alias: `waitpress`
 
-Wait until any of the keys passed as arguments are pressed. Return which was pressed first.
+Waits until any of the keys passed as arguments are pressed. Returns which was pressed first.
 
 ```lua
-k = waitPress()
-k = waitPress(1)
-k = waitPress(1, 6)
+k = waitPress()  -- Waits until any key is pressed
+k = waitPress(1)  -- Waits until key 1 is pressed
+k = waitPress(1, 6)  -- Waits until key 1 or 6 is pressed
 ```
 
-### **`waitRelease(key: integer, ...)`**
+### **`waitRelease([key: integer, ...])`**
 
 Alias: `waitrelease`
 
 Wait until any of the keys passed as arguments are released. Return which was released first.
 
 ```lua
-k = waitRelease()
-k = waitRelease()
-k = waitRelease(1, 6)
+k = waitRelease() -- Waits until any key is released  
+k = waitRelease() -- Waits until key 1 is released
+k = waitRelease(1, 6) -- Waits until key 1 or 6 is released
 ```
 
 ### **`setColor(key: integer, color: color)`**
 
 Alias: `setcolor`
 
-Set key color immediately.
+Sets key color immediately.
 
 ```lua
 setColor(1, 0xff0000)
@@ -167,7 +167,7 @@ setColor(2, color.rgb(0,1,0))
 
 Alias: `fadecolor`
 
-Fade key from its current color for `ms` milliseconds. Note that this is not a blocking function. 
+Fades key from its current color for `ms` milliseconds. Note that this is not a blocking function. 
 
 ```lua
 fadeColor(1, 0xff0000, 500)
@@ -178,7 +178,7 @@ fadeColor(2, color.rgb(0,1,0), 500)
 
 Alias: `flashcolor`
 
-Flash key for `ms` milliseconds and progressively revert to original color.
+Flashes key for `ms` milliseconds and progressively revert to original color.
 
 ```lua
 setColor(1, 0xff0000)  -- Key is set to red
@@ -200,31 +200,34 @@ setColor(2, "#ff00FF")
 setColor(3, "ff00FF")
 
 -- Using color.rgb
-setColor(4, color.rgb(1,0,1))
+setColor(4, color.rgb(1, 0, 1))
 
 -- in HSL mode
-setColor(4, color.hsl(5/6,1,.5))
+setColor(4, color.hsl(5/6, 1, .5))
 ```
 
-### `color.mul(a: color, b: color)`
+### `color.mul(a: color, b: color) : color`
 
-Multiply two colors.
+Constructs a new color by multiplying `a` and `b`.
 
-### `color.add(a: color, b: color)`
+### `color.add(a: color, b: color) : color`
 
-Add two colors.
+Constructs a new color by adding `a` and `b`.
 
-### `color.mix(a: color, b: color, k: number)`
+### `color.mix(a: color, b: color, t: number) : color`
 
-Mixes (blend) between two colors.
+Constructs a new color by mixing `a` and `b` according to `t`.
+- If `t` is `0`, returns `a`
+- If `t` is `1`, returns `b`
+- If `t` is `0.5`, returns a 50% mix between `a` and `b`
 
 ### `color.rgb(r: number, g: number, b: number)`
 
-Construct a new color from 3 components between 0 and 1.
+Constructs a new color from 3 components between `0` and `1`.
 
 ### `color.hsl(h: number, s: number, l: number)`
 
-Construct a new color from hue, saturation and lightness values between 0 and 1.
+Constructs a new color from hue, saturation and lightness values between `0` and `1`.
 
 ## Events
 
@@ -232,12 +235,12 @@ Events are special functions that are called automatically if they are defined.
 
 ⚠️ Blocking functions (`wait`, …) cannot be used inside an event. 
 
-### **`onUpdate(ms: number)`**
+### **`onUpdate(dt: number)`**
 
-Called every frame, passing the elapsed frame time as argument.
+Called every frame, passing the elapsed frame time `dt` as argument.
 
 ```lua
-function onUpdate(ms)
+function onUpdate(dt)
     -- Loop here
 end
 ```
@@ -305,7 +308,7 @@ end
 
 ### **`addListener(listener: table)`**
 
-Register a table which keys are function callbacks. This is useful to listen to key events or receive updates temporarily. 
+Registers a table which keys are function callbacks. This is useful to listen to key events or receive updates temporarily. All top-level events are supported as keys of the listener table. 
 
 ```lua
 addListener({
@@ -316,7 +319,7 @@ addListener({
 
 ### **`removeListener(listener: table)`**
 
-Unregister listener previously registered with `addListener`
+Unregisters listener previously registered with `addListener`
 
 ```lua
 local l = addListener({
@@ -333,15 +336,15 @@ In addition, the following extensions are provided :
 
 ### `table.shuffle(t: table)`
 
-Randomize elements in the table (uses math.random)
+Randomizes elements in the table (uses math.random)
 
 ### `table.clear(t: table)`
 
-Empty the the table, equivalent of table = {} without allocations
+Empties the the table, equivalent of table = {} without allocations
 
 ### `table.contains(t: table, v) : boolean`
 
-Return true if the table contains the given value.
+Returns true if the table contains the given value.
 
 ## Math
 

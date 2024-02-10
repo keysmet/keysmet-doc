@@ -10,11 +10,56 @@ See detailed [API page](./api.md)
 [Official examples](https://keysmet.io/user/keysmet)
 
 ## Lua
-
+Keysmet uses Lua 5.4 as programming language. Check the documentation for a more detailed overview. Only a few specific aspects of Lua are covered here.
 - [Lua cheatsheet](https://devhints.io/lua)
 - [Lua 5.4 Reference Manual](https://www.lua.org/manual/5.4/)
 
-## Program flow
+### Variables
+Variables are global by default, unless declared with `local`. 
+```lua
+a = 1
+if condition then
+    b = 1
+    local c = 1
+end
+-- a and b are defined, c is undefined
+```
+### Tables
+- Table indices start with 1 and not 0.
+- The `#` operator returns the length of a table
+- Lua tables can be used as lists or dictionaries. 
+
+```lua
+local t = { 1, 2, 3 }
+print(t[1])  -- prints 1
+print(t[#t]) -- prints 3
+```
+
+### Control blocks
+Blocks of code are closed by `end`, not braces or indentation:
+```lua
+if condition then
+    -- Only reached if condition is true
+end
+
+while true do
+    -- Repeats indefinitely
+end
+
+for i=1, 10 do
+    -- Repeats from 1 to 10 included
+end
+
+do 
+    -- Local variables declared here are only visible within this block
+end
+```
+
+
+
+
+
+## Script structure
 
 A script is run only once after it is loaded. Functions are defined in the order in which they appear in the script.
 To create animations, two methods are available, using `onUpdate` or a combination of `while` + `wait`.
@@ -26,7 +71,7 @@ This is the standard way to create animations in most programming environments a
 The `onUpdate` function, if defined, is called every frame automatically, indefinitely:
 
 ```lua
-function onUpdate()
+function onUpdate(dt)
     -- Code here executes every frame
 end
 ```
