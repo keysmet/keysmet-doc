@@ -49,8 +49,6 @@ end
 
 Another approach is to split your program in separate chunks of blocking loops:
 
-To better control the program flow it is often useful to create an infinite loop, such as:
-
 ```lua
 -- Intro
 while not press() do
