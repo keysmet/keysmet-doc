@@ -35,6 +35,22 @@ print(t[1])  -- prints 1
 print(t[#t]) -- prints 3
 ```
 
+There are two major ways to iterate over elements in a table:
+```lua
+local t = { 1, 2, 3 }
+
+-- Using #
+for i=1, #t do
+    print(i, t[i])
+end
+
+-- Using ipairs
+for i, v in ipairs(t) do
+    print(i, v)
+end
+
+```
+
 ### Control blocks
 Blocks of code are closed by `end`, not braces or indentation:
 ```lua
@@ -54,10 +70,6 @@ do
     -- Local variables declared here are only visible within this block
 end
 ```
-
-
-
-
 
 ## Script structure
 
