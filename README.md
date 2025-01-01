@@ -1,13 +1,31 @@
 # Keysmet Programming Guide
-Join the [Discord server](https://discord.gg/kYZQket7BS)
 
-## API
+Join the [Discord server](https://discord.gg/kYZQket7BS) for community support and sharing.
 
-See detailed [API page](./api.md)
+## Hardware Features
 
-## Examples
+Keysmet includes:
+- 10 programmable keys with RGB LEDs
+- Built-in accelerometer for motion detection
+- Audio synthesis capabilities
+- Bluetooth connectivity
+- USB interface
 
-[Official examples](https://keysmet.io/user/keysmet)
+See the respective API documentation for detailed information on using these features.
+
+## Getting Started
+
+1. Go to [keysmet.io](https://keysmet.io/script)
+2. Use the script editor on the right to write your code
+3. Test your creation in the emulator on the left
+4. Connect your device via Bluetooth or USB for live coding
+
+## Documentation
+
+- [API Reference](./api.md) - General API documentation
+- [Motion API](./motion.md) - Motion and accelerometer features
+- [Synth API](./synth.md) - Audio synthesis and music creation
+
 
 ## Lua
 Keysmet uses Lua 5.4 as programming language. Check the documentation for a more detailed overview. Only a few specific aspects of Lua are covered here.
@@ -15,19 +33,23 @@ Keysmet uses Lua 5.4 as programming language. Check the documentation for a more
 - [Lua 5.4 Reference Manual](https://www.lua.org/manual/5.4/)
 
 ### Variables
-Variables are global by default, unless declared with `local`. 
+
+Variables are global by default unless declared with `local`:
+
 ```lua
-a = 1
+a = 1  -- global variable
 if condition then
-    b = 1
-    local c = 1
+    b = 1  -- also global
+    local c = 1  -- local to this block
 end
 -- a and b are defined, c is undefined
 ```
+
 ### Tables
-- Table indices start with 1 and not 0.
-- The `#` operator returns the length of a table
-- Lua tables can be used as lists or dictionaries. 
+
+- Table indices start at 1 (not 0)
+- Use the `#` operator to get table length
+- Tables can function as both arrays and dictionaries
 
 ```lua
 local t = { 1, 2, 3 }
@@ -48,26 +70,28 @@ end
 for i, v in ipairs(t) do
     print(i, v)
 end
-
 ```
 
-### Control blocks
-Blocks of code are closed by `end`, not braces or indentation:
+### Control Structures
+
+Code blocks are closed with `end`, not braces or indentation:
+
 ```lua
 if condition then
-    -- Only reached if condition is true
+    -- Conditional code
 end
 
 while true do
-    -- Repeats indefinitely
+    -- Infinite loop
 end
 
 for i=1, 10 do
-    -- Repeats from 1 to 10 included
+    -- Counts from 1 to 10 (inclusive)
 end
 
 do 
-    -- Local variables declared here are only visible within this block
+    -- Code block for local scope
+    local x = 1
 end
 ```
 
@@ -75,6 +99,14 @@ end
 
 A script is run only once after it is loaded. Functions are defined in the order in which they appear in the script.
 To create animations, two methods are available, using `onUpdate` or a combination of `while` + `wait`.
+
+### Best Practices
+
+1. Always use `wait()` in infinite loops to prevent blocking
+2. Place function definitions before any infinite loops
+3. Use local variables when possible to avoid naming conflicts
+4. Break complex scripts into smaller functions
+
 
 ### Main loop with `onUpdate`
 
@@ -84,7 +116,7 @@ The `onUpdate` function, if defined, is called every frame automatically, indefi
 
 ```lua
 function onUpdate(dt)
-    -- Code here executes every frame
+    -- Called every frame with delta time in milliseconds
 end
 ```
 
@@ -107,15 +139,15 @@ end
 Another approach is to split your program in separate chunks of blocking loops:
 
 ```lua
--- Intro
+-- Intro sequence
 while not press() do
-    -- Do something until any key is pressed...
+    -- Run intro animation
     wait()
 end
 
--- Game
+-- Main game loop
 while true do
-    -- Do something indefinitely
+    -- Game logic
     wait()
 end
 ```

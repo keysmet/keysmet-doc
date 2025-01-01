@@ -12,11 +12,11 @@ Type annotations (`:integer` etc) are provided here for reference but cannot be 
 
 ### `time()`
 
-Returns time since script started (in milliseconds), or last time `resetTime` was called. 
+Returns time since script started (in milliseconds), or last time `resetTime` was called.
 
 ```lua
 if time() > 20 * 1000 then
-    -- It has already been 20 seconds!
+    -- It has been 20 seconds!
 end
 ```
 
@@ -24,11 +24,11 @@ end
 
 Alias: `resettime`
 
-Reset time to 0. 
+Reset time to 0.
 
 ### `wait(ms: integer)`
 
-Pauses the current thread of execution for `ms` milliseconds. Argument can be omitted to wait for a single frame. 
+Pauses the current thread of execution for `ms` milliseconds. Argument can be omitted to wait for a single frame.
 
 ```lua
 dostuff()
@@ -36,9 +36,9 @@ wait(1000)  -- wait for 1 second
 dostuff()
 ```
 
-### `start(func: function)`
+### `start(func: function): thread|false`
 
-Starts a new thread executing the given function `func`. Thread starts immediately. Return the new thread (`coroutine`).
+Starts a new thread executing the given function `func`. Thread starts immediately. Returns the new thread (`coroutine`) if successful, or false if the thread fails to start.
 
 ```lua
 -- Start a thread that calls dostuff 10 times and stops
@@ -52,9 +52,9 @@ end)
 -- Script continues to run in parallel
 ```
 
-### `delay(ms: integer, func: function)`
+### `delay(ms: integer, func_or_thread: function|thread)`
 
-Calls the function `func` after `ms` milliseconds. Unlike `wait`, execution of the current thread is not blocked.
+Calls the function or resumes the thread after `ms` milliseconds. Unlike `wait`, execution of the current thread is not blocked.
 
 ```lua
 -- Delay inline function
@@ -68,7 +68,7 @@ delay(1000, restart)
 
 ### `print(...)`
 
-Prints one or several values to the emulator console. Has no effect on device. 
+Prints one or several values to the emulator console. Has no effect on device.
 
 ```lua
 print("string")
@@ -82,11 +82,11 @@ Restarts the script from the beginning.
 
 ## Keys
 
-Keys are identified by numbers between 1 and 10. Calling any key-related function with indices outside the [1-10] range has no effect. 
+Keys are identified by numbers between 1 and 10. Calling any key-related function with indices outside the [1-10] range has no effect.
 
 ![keymap](https://github.com/keysmet/keysmet-doc/assets/1499344/d23ac875-1895-46fa-bff9-083ef430fabf)
 
-### **`down([key: integer, ...])`**
+### `down([key: integer, ...])`
 
 If any of the given keys are currently pressed down, returns the first one. Otherwise returns false.
 
@@ -106,21 +106,21 @@ if key then
 end
 ```
 
-### **`press([key: integer, ...])`**
+### `press([key: integer, ...])`
 
 If any of the given keys were just pressed down, returns the first one. Otherwise returns false.
 
-Works the same way as `down` with the difference that it returns a value only during the single frame were the key was **pressed**.
+Works the same way as `down` with the difference that it returns a value only during the single frame where the key was **pressed**.
 
-### **`release([key: integer, ...])`**
+### `release([key: integer, ...])`
 
-If any of the given keys were just released, return the first one. Otherwise return false.
+If any of the given keys were just released, returns the first one. Otherwise returns false.
 
-Just like `press`, it returns a value only during the single frame were the key was **released**.
+Just like `press`, it returns a value only during the single frame where the key was **released**.
 
-### **`hold(key: integer, ms: integer): boolean`**
+### `hold(key: integer, ms: integer): boolean`
 
-Returns true if `key` was held down for at least `ms` milliseconds
+Returns true if `key` was held down for at least `ms` milliseconds. The default hold threshold is set to 500ms.
 
 ```lua
 if hold(1, 1000) then
@@ -128,7 +128,7 @@ if hold(1, 1000) then
 end
 ```
 
-### **`waitPress([key: integer, ...)`**
+### `waitPress([key: integer, ...])`
 
 Alias: `waitpress`
 
@@ -140,50 +140,56 @@ k = waitPress(1)  -- Waits until key 1 is pressed
 k = waitPress(1, 6)  -- Waits until key 1 or 6 is pressed
 ```
 
-### **`waitRelease([key: integer, ...])`**
+### `waitRelease([key: integer, ...])`
 
 Alias: `waitrelease`
 
-Wait until any of the keys passed as arguments are released. Return which was released first.
+Wait until any of the keys passed as arguments are released. Returns which was released first.
 
 ```lua
 k = waitRelease() -- Waits until any key is released  
-k = waitRelease() -- Waits until key 1 is released
+k = waitRelease(1) -- Waits until key 1 is released
 k = waitRelease(1, 6) -- Waits until key 1 or 6 is released
 ```
 
-### **`setColor(key: integer, color: color)`**
+### `setColor(key: integer, color: color)`
 
 Alias: `setcolor`
 
-Sets key color immediately.
+Sets key color immediately. Color can be specified in multiple formats:
+- Hexadecimal integer: `0xRRGGBB`
+- Hexadecimal string: `"#ff00ff"` or `"ff00ff"`
+- RGB function: `color.rgb(r, g, b)` with values 0-1
+- HSL function: `color.hsl(h, s, l)` with values 0-1
 
 ```lua
-setColor(1, 0xff0000)
-setColor(2, color.rgb(0,1,0))
+setColor(1, 0xff0000)  -- Red using hex integer
+setColor(2, "#00ff00") -- Green using hex string
+setColor(3, color.rgb(0, 0, 1))  -- Blue using RGB
+setColor(4, color.hsl(0.5, 1, 0.5))  -- Cyan using HSL
 ```
 
-### **`fadeColor(key: integer, color: color, ms: integer)`**
+### `fadeColor(key: integer, color: color, ms: integer)`
 
 Alias: `fadecolor`
 
-Fades key from its current color for `ms` milliseconds. Note that this is not a blocking function. 
+Fades key from its current color to target color over `ms` milliseconds. Note that this is not a blocking function.
 
 ```lua
-fadeColor(1, 0xff0000, 500)
-fadeColor(2, color.rgb(0,1,0), 500)
+fadeColor(1, 0xff0000, 500)  -- Fade to red over half a second
+fadeColor(2, color.rgb(0,1,0), 500)  -- Fade to green
 ```
 
-### **`flashColor(key: integer, color: color, ms: integer)`**
+### `flashColor(key: integer, color: color, ms: integer)`
 
 Alias: `flashcolor`
 
-Flashes key for `ms` milliseconds and progressively revert to original color.
+Flashes key to target color and fades back to original color over `ms` milliseconds.
 
 ```lua
 setColor(1, 0xff0000)  -- Key is set to red
-flashColor(1, 0xffffff, 500)  -- Key flashes instantly to white
-wait(500)  -- Flash animation makes it to back to red
+flashColor(1, 0xffffff, 500)  -- Key flashes to white
+-- After 500ms, key returns to red
 ```
 
 ## Color
@@ -231,21 +237,21 @@ Constructs a new color from hue, saturation and lightness values between `0` and
 
 ## Events
 
-Events are special functions that are called automatically if they are defined. 
+Events are special functions that are called automatically if they are defined.
 
-⚠️ Blocking functions (`wait`, …) cannot be used inside an event. 
+⚠️ Blocking functions (`wait`, etc.) cannot be used inside events.
 
-### **`onUpdate(dt: number)`**
+### `onUpdate(dt: number)`
 
-Called every frame, passing the elapsed frame time `dt` as argument.
+Called every frame with elapsed time `dt` in milliseconds.
 
 ```lua
 function onUpdate(dt)
-    -- Loop here
+    -- Called every frame
 end
 ```
 
-### **`onPress(key: integer)`**
+### `onPress(key: integer)`
 
 Called when a key is pressed down.
 
@@ -255,7 +261,7 @@ function onPress(key)
 end
 ```
 
-### **`onRelease(key: integer)`**
+### `onRelease(key: integer)`
 
 Called when a key is released.
 
@@ -263,12 +269,11 @@ Called when a key is released.
 function onRelease(key)
     -- A key was released
 end
-
 ```
 
-### **`onTap(key: integer)`**
+### `onTap(key: integer)`
 
-Called when a key is pressed and released shortly after.
+Called when a key is pressed and released within 200ms.
 
 ```lua
 function onTap(key)
@@ -276,50 +281,32 @@ function onTap(key)
 end
 ```
 
-### **`onMenuPress()`**
+### `onMenuPress()`
 
-Called when menu button is pressed down.
+Called when menu button is pressed.
 
-```lua
-function onMenuPress()
-    -- Menu button pressed
-end
-```
-
-### **`onMenuRelease()`**
+### `onMenuRelease()`
 
 Called when menu button is released.
 
-```lua
-function onMenuRelease()
-    -- Menu button released
-end
-```
+### `onMenuTap()`
 
-### **`onMenuTap()`**
+Called when menu button is tapped (pressed and released within 200ms).
 
-Called when menu button is pressed and released shortly after.
-
-```lua
-function onMenuTap()
-    -- Menu button tapped
-end
-```
-
-### **`addListener(listener: table)`**
+### `addListener(listener: table)`
 
 Registers a table which keys are function callbacks. This is useful to listen to key events or receive updates temporarily. All top-level events are supported as keys of the listener table. 
 
 ```lua
 addListener({
-    onMenuTap = function()
-    end
+    onUpdate = function(dt) end,
+    onPress = function(key) end
 })
 ```
 
-### **`removeListener(listener: table)`**
+### `removeListener(listener: table)`
 
-Unregisters listener previously registered with `addListener`
+Unregisters a previously added listener.
 
 ```lua
 local l = addListener({
@@ -332,20 +319,32 @@ removeListener(l)
 
 All standard Lua `table.*` functions are supported, see https://www.lua.org/manual/5.4/manual.html#6.6. 
 
-In addition, the following extensions are provided :
+In addition, the following extensions are provided.
+
+### `table.choice(t: table): any`
+
+Returns a random element from the table.
 
 ### `table.shuffle(t: table)`
 
-Randomizes elements in the table (uses math.random)
+Randomizes table elements using math.random.
 
 ### `table.clear(t: table)`
 
-Empties the the table, equivalent of table = {} without allocations
+Empties the table without creating a new table.
 
-### `table.contains(t: table, v) : boolean`
+### `table.contains(t: table, v): boolean`
 
-Returns true if the table contains the given value.
+Returns true if table contains value v.
 
 ## Math
 
 All standard Lua `math.*` functions are supported, see https://www.lua.org/manual/5.4/manual.html#6.7.
+
+### `math.lerp(a: number, b: number, t: number): number`
+
+Linearly interpolates between `a` and `b` using `t` (0-1).
+
+```lua
+local half = math.lerp(0, 100, 0.5)  -- returns 50
+```
