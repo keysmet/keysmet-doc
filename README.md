@@ -179,3 +179,67 @@ end
 function onPress(k)
 end
 ```
+
+
+### Threading
+
+Though blocking functions cannot be used in events, it's possible to start new threads that can use blocking functions. This is particularly useful for:
+
+1. Running multiple animations in parallel
+2. Starting sequences in response to events
+3. Managing multiple independent game mechanics
+
+Threads are created using the `start()` function and run until their function returns:
+
+```lua
+function onPress(key)
+    -- This won't work:
+    -- wait(1000)  -- Error: cannot use wait in events!
+    
+    -- But this works:
+    start(function()
+        wait(1000)
+        setColor(key, 0xff0000)
+    end)
+end
+```
+
+Multiple threads can run simultaneously:
+
+```lua
+-- Blink key 1 every second
+start(function()
+    while true do
+        setColor(1, 0xff0000)
+        wait(1000)
+        setColor(1, 0)
+        wait(1000)
+    end
+end)
+
+-- Blink key 2 every 500ms
+start(function()
+    while true do
+        setColor(2, 0x00ff00)
+        wait(500)
+        setColor(2, 0)
+        wait(500)
+    end
+end)
+```
+
+Threads stop when their function returns:
+
+```lua
+start(function()
+    setColor(1, 0xff0000)
+    wait(1000)
+    setColor(1, 0)
+    -- Thread stops here
+end)
+
+-- This thread stops immediately because there's no wait()
+start(function()
+    setColor(2, 0xff0000)
+end)
+```
