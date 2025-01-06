@@ -29,6 +29,8 @@ See the respective API documentation for detailed information on using these fea
 
 ## Lua
 Keysmet uses Lua 5.4 as programming language. Check the documentation for a more detailed overview. Only a few specific aspects of Lua are covered here.
+
+- [Lua tips](./lua-tips.md)
 - [Lua cheatsheet](https://devhints.io/lua)
 - [Lua 5.4 Reference Manual](https://www.lua.org/manual/5.4/)
 
