@@ -36,6 +36,28 @@ wait(1000)  -- wait for 1 second
 dostuff()
 ```
 
+### `waitUntil(func: function, ...)`
+
+Waits until the provided function returns true. The function is called every frame with any additional arguments passed to `waitUntil`. Throws an error if the function is not provided or if it doesn't return a value.
+
+```lua
+-- Wait until key 1 has been held for 2 seconds
+waitUntil(function()
+    return hold(1, 2000)
+end)
+
+-- Wait until two specific keys are pressed simultaneously
+waitUntil(function()
+    return down(1) and down(5)
+end)
+
+-- With parameters
+local target = 100
+waitUntil(function(val)
+    return time() > val
+end, target)
+```
+
 ### `start(func: function): thread|false`
 
 Starts a new thread executing the given function `func`. Thread starts immediately. Returns the new thread (`coroutine`) if successful, or false if the thread fails to start.
