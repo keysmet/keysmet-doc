@@ -1,0 +1,30 @@
+{
+  "name": "keysmet-doc",
+  "version": "1.0.0",
+  "description": "Join the [Discord server](https://discord.gg/kYZQket7BS) for community support and sharing.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keysmet/keysmet-doc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keysmet/keysmet-doc/issues"
+  },
+  "homepage": "https://github.com/keysmet/keysmet-doc#readme",
+  "devDependencies": {
+    "@vuepress/bundler-vite": "^2.0.0-rc.26",
+    "@vuepress/client": "^2.0.0-rc.26",
+    "@vuepress/theme-default": "^2.0.0-rc.121",
+    "sass-embedded": "^1.97.2",
+    "vue": "^3.5.27",
+    "vuepress": "^2.0.0-rc.26"
+  }
+}
