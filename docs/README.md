@@ -15,7 +15,7 @@ See the respective API documentation for detailed information on using these fea
 
 ## Getting Started
 
-1. Go to [keysmet.io](https://keysmet.io/script)
+1. Go to [Keysmet script editor](https://keysmet-script.web.app/script)
 2. Use the script editor on the right to write your code
 3. Test your creation in the emulator on the left
 4. Connect your device via Bluetooth or USB for live coding
